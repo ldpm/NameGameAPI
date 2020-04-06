@@ -11,7 +11,15 @@ use Symfony\Component\Routing\RouteCollectionBuilder;
 
 class Kernel extends BaseKernel
 {
-    use MicroKernelTrait;
+    public function getCacheDir() {
+      return "/var/". $this->environment.'/cache';
+    }
+
+    public function getLogDir() {
+      return "/var/". $this->environment.'/log';
+    }
+
+  use MicroKernelTrait;
 
     private const CONFIG_EXTS = '.{php,xml,yaml,yml}';
 
