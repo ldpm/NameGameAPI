@@ -4,10 +4,17 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\NameRepository")
+ * @ApiFilter(BooleanFilter::class, properties={"isGotten"})
+ * @ApiFilter(NumericFilter::class, properties={"playerId", "hatId"})
  */
 class Name
 {
@@ -32,6 +39,18 @@ class Name
      * @ORM\Column(type="datetime")
      */
     private $createdDate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Player", inversedBy="names")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $owner;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Hat", inversedBy="names")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $hat;
 
     public function getId(): ?int
     {
@@ -70,6 +89,42 @@ class Name
     public function setCreatedDate(\DateTimeInterface $createdDate): self
     {
         $this->createdDate = $createdDate;
+
+        return $this;
+    }
+
+    public function getHatId(): ?int
+    {
+        return $this->hatId;
+    }
+
+    public function setHatId(int $hatId): self
+    {
+        $this->hatId = $hatId;
+
+        return $this;
+    }
+
+    public function getOwner(): ?Player
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?Player $owner): self
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function getHat(): ?Hat
+    {
+        return $this->hat;
+    }
+
+    public function setHat(?Hat $hat): self
+    {
+        $this->hat = $hat;
 
         return $this;
     }
