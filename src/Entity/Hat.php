@@ -9,7 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *   collectionOperations={"get", "post"},
+ *   itemOperations={"get"}
+ *   )
  * @ORM\Entity(repositoryClass="App\Repository\HatRepository")
  */
 class Hat

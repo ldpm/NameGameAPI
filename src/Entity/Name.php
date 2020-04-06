@@ -11,7 +11,10 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *   collectionOperations={"get", "post"},
+ *   itemOperations={"get", "put"}
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\NameRepository")
  * @ApiFilter(BooleanFilter::class, properties={"isGotten"})
  * @ApiFilter(NumericFilter::class, properties={"playerId", "hatId"})
@@ -89,18 +92,6 @@ class Name
     public function setCreatedDate(\DateTimeInterface $createdDate): self
     {
         $this->createdDate = $createdDate;
-
-        return $this;
-    }
-
-    public function getHatId(): ?int
-    {
-        return $this->hatId;
-    }
-
-    public function setHatId(int $hatId): self
-    {
-        $this->hatId = $hatId;
 
         return $this;
     }
