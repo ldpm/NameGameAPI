@@ -1,6 +1,6 @@
 # NameGameAPI
 
-This project provides a server for virtual "hats" to support Name Game as it is typically played by SWIL.
+This project provides a server for virtual "hats" to support Name Game as it is typically played by SWIL. It does not provide voice chat or anything else; it just simulates names in a hat that can be tossed on the floor when they're gotten.
 
 IMPORTANT
 =========
